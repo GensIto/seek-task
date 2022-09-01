@@ -22,13 +22,6 @@ function App() {
       });
   };
 
-  const filterTask = () => {
-    const result = tasks.filter((task: TaskType) => {
-      return task.title == searchKeyword;
-    });
-    setTasks(result);
-  };
-
   const handleSeekDone = () => {
     const doneTask = [...tasks];
     const result = doneTask.filter((task: TaskType) => {
@@ -55,6 +48,10 @@ function App() {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchKeyword(e.target.value);
+    const result = tasks.filter((task: TaskType) => {
+      return task.title.includes(searchKeyword);
+    });
+    setTasks(result);
   };
 
   useEffect(() => {
@@ -65,7 +62,6 @@ function App() {
     <div>
       <p>HI!</p>
       <input value={searchKeyword} onChange={handleChange} />
-      <button onClick={filterTask}>filterTask</button>
       <button onClick={handleSeekDone}>Seek Done</button>
       <button onClick={handleSeekDoing}>Seek Doing</button>
       <ul>
